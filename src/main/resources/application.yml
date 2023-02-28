@@ -1,0 +1,33 @@
+# 服务器相关配置
+server:
+  port: 3000
+
+# spring相关配置
+spring:
+
+  # MySQL相关配置
+  datasource:
+    # MySQL用户名(自己改成自己的)
+    username: root
+    # MySQL密码(自己改成自己的)
+    password: Lzx12345
+    # 数据库链接
+    url: jdbc:mysql://localhost:3306/puppy?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
+    # 连接类名
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # redis
+  redis:
+    # redis服务器地址
+    host: localhost
+    # redis服务器连接端口
+    port: 6379
+    # redis数据库索引
+    database: 0
+    # 连接超时时间 (毫秒)
+    timeout: 5000
+    password:
+
+# MyBatis-Plus路径配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
