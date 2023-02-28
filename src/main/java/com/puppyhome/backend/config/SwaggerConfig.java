@@ -32,17 +32,17 @@ public class SwaggerConfig {
 				//RequestHandlerSelectors：配置要扫描的方式，有basePackage("路径")、any():扫描全部，none():全部不扫描
 				//RequestHandlerSelectors.withMethodAnnotation():扫描方法上的注解
 				//.withClassAnnotation()：扫描类上的注解
-				.apis(RequestHandlerSelectors.basePackage("com.tanei.backend.controller"))//指定扫描的包
+				.apis(RequestHandlerSelectors.basePackage("com.puppyhome.backend.controller"))//指定扫描的包
 				.build();
 	}
 
 	private ApiInfo apiInfo() {
 		Contact contact = new Contact("WA_automat", "https://wa-automat.github.io/", "1577696824@qq.com");
 		return new ApiInfo(
-				"TANEI Api",
+				"PuppyHome Api",
 				"Api Documentation",
 				"v1.0",
-				"https://gitee.com/nonverbal/wechat_test",
+				"https://github.com/WA-automat/PuppyHome_SpringBoot",
 				contact,
 				"Apache 2.0",
 				"http://www.apache.org/licenses/LICENSE-2.0",
