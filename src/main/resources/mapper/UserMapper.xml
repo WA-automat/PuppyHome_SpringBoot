@@ -7,5 +7,10 @@
         FROM dog
         WHERE ownerId = #{id};
     </select>
+    <select id="selectUnAdoptedDogsExceptMineByUserId" resultType="com.puppyhome.backend.pojo.Dog">
+        SELECT *
+        FROM dog
+        WHERE ownerId = #{id} and state = 0;
+    </select>
 
 </mapper>

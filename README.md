@@ -17,6 +17,7 @@ UserInfo
 5. Age
 6. Gender
 7. Telephone
+8. authentication
 
 建表语句：
 
@@ -31,6 +32,7 @@ create table user
     age       double        not null,
     gender    int           not null,
     telephone varchar(100)  not null,
+    authentication int default 0 not null,
     constraint user_pk
         primary key (id)
 );
@@ -53,7 +55,8 @@ DogInfo
 4. Gender
 5. Age
 6. Type
-6. ownerId
+7. ownerId
+8. state
 
 ```mysql
 create table dog
@@ -65,6 +68,7 @@ create table dog
     age     double        not null,
     type    varchar(100)  not null,
     ownerId int           not null,
+    state int default 0   not null,
     constraint dog_pk
         primary key (id)
 );
@@ -85,5 +89,5 @@ create unique index dog_id_uindex
 
 2023-3-1
 
-1. 完成用户信息接口
-1. 创建小狗信息数据库以及小狗实体类、映射类
+1. 完成用户信息接口 
+2. 创建小狗信息数据库以及小狗实体类、映射类

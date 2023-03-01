@@ -42,4 +42,7 @@ public class Dog {
 	@TableField("ownerId")
 	private Integer ownerId;
 
+	@TableField("state")
+	private Integer state;
+
 }

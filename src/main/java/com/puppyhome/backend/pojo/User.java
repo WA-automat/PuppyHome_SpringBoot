@@ -46,4 +46,7 @@ public class User {
 	@TableField("telephone")
 	private String telephone;
 
+	@TableField("authentication")
+	private Integer authentication;
+
 }

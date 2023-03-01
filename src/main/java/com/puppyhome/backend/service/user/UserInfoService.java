@@ -8,5 +8,10 @@ import com.puppyhome.backend.utils.ResponseResult;
 public interface UserInfoService {
 	ResponseResult getUserInfo(String token) throws Exception;
 
-	ResponseResult setUserInfo(String token, String nickName, String avatar, String realName, Double age, Integer gender, String telephone) throws Exception;
+	ResponseResult setUserInfo(
+			String token, String nickName, String avatar, String realName,
+			Double age, Integer gender, String telephone
+	) throws Exception;
+
+	ResponseResult getDogsList(String token) throws Exception;
 }

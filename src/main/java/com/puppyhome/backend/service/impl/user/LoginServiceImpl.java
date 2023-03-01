@@ -69,10 +69,13 @@ public class LoginServiceImpl implements LoginService {
 		Jedis jedis = new Jedis(host, Math.toIntExact((port)));
 		jedis.connect();
 
-		// 用户信息存入redis
-		jedis.set("wxLogin:" + jwt, JSON.toJSONString(jsonObject));
+		if (!jedis.exists("wxLogin:" + openid)) {
+			// 用户信息存入redis
+			jedis.set("wxLogin:" + openid, JSON.toJSONString(jsonObject));
+		}
+
 		// 登录有效期最长为3天(即3天后必须重新登录)
-		jedis.expire("wxLogin:" + jwt, 3 * 24 * 60 * 60L);
+		jedis.expire("wxLogin:" + openid, 3 * 24 * 60 * 60L);
 
 		// 创建返回的data
 		Map<String, String> map = new HashMap<>();

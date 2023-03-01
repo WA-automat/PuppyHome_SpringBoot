@@ -34,4 +34,11 @@ public class UserInfoController {
 		);
 	}
 
+	@GetMapping("/dogs")
+	public ResponseResult getDogsList(
+			@RequestParam("token") String token
+	) throws Exception {
+		return userInfoService.getDogsList(token);
+	}
+
 }

@@ -10,4 +10,5 @@ import java.util.List;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
 	List<Dog> selectDogsByUserId(Integer id);
+	List<Dog> selectUnAdoptedDogsExceptMineByUserId(Integer id);
 }
