@@ -9,7 +9,8 @@ class BackendApplicationTests {
 
 	@Test
 	void testJwtUtil() throws Exception {
-		String jwt = JwtUtil.createJWT("123");
+		String jwt = JwtUtil.createJWT("2");
+		System.out.println(jwt);
 		System.out.println(JwtUtil.parseJWT(jwt).getSubject());
 	}
 

@@ -8,7 +8,6 @@ import com.puppyhome.backend.pojo.User;
 import com.puppyhome.backend.service.user.LoginService;
 import com.puppyhome.backend.utils.JwtUtil;
 import com.puppyhome.backend.utils.ResponseResult;
-import lombok.val;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +17,7 @@ import redis.clients.jedis.Jedis;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -84,7 +84,7 @@ public class LoginServiceImpl implements LoginService {
 		queryWrapper.eq(User::getOpenId, openid);
 		User user = userMapper.selectOne(queryWrapper);
 
-		if (user != null) {
+		if (!Objects.isNull(user)) {
 			map.put("hasObj", "true");
 		} else {
 			map.put("hasObj", "false");

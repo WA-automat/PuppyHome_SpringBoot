@@ -17,7 +17,6 @@ import lombok.NonNull;
 public class User {
 
 	@TableId(type = IdType.AUTO)
-	@TableField("id")
 	private Integer id;
 
 	@NonNull
