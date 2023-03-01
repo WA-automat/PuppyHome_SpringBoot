@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.puppyhome.backend.mapper.DogMapper">
+    <select id="selectDogsOwnerById" resultType="com.puppyhome.backend.pojo.User">
+        SELECT ur.id, ur.openId, ur.nickName, ur.avatar, ur.realName, ur.age, ur.gender, ur.telephone, ur.authentication
+        FROM user ur
+        LEFT JOIN dog dg ON ur.id = dg.ownerId
+        WHERE dg.id = #{id};
+    </select>
 </mapper>
