@@ -103,4 +103,19 @@ public class DogsServiceImpl implements DogsService {
 		return new ResponseResult<>(200, "获取成功", map);
 	}
 
+	@Override
+	public ResponseResult getMsg(Integer id) {
+
+		// 使用id获取狗狗的信息
+		LambdaQueryWrapper<Dog> queryWrapper = new LambdaQueryWrapper<>();
+		queryWrapper.eq(Dog::getId, id);
+		Dog dog = dogMapper.selectOne(queryWrapper);
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("dogs", dog);
+
+		return new ResponseResult<>(200, "获取成功", map);
+
+	}
+
 }

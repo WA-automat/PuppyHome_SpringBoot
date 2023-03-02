@@ -15,4 +15,6 @@ public interface DogsService {
 	) throws Exception;
 
 	ResponseResult getUnAdoptedDogsExceptMine(String token);
+
+	ResponseResult getMsg(Integer id);
 }
