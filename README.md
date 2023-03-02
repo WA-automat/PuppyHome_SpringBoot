@@ -8,7 +8,9 @@
 
 ## 数据库架构
 
-UserInfo
+### 用户数据库
+
+User
 
 1. OpenId
 2. NickName
@@ -47,7 +49,9 @@ create unique index user_openId_uindex
 
 ---
 
-DogInfo
+### 小狗数据库
+
+Dog
 
 1. id
 2. DogName
@@ -78,6 +82,33 @@ create unique index dog_id_uindex
 
 ```
 
+### 收发信息数据库
+
+Message
+
+1. id
+2. fromId
+3. toId
+4. dogId
+5. state
+
+```mysql
+create table message
+(
+    id     int auto_increment,
+    fromId int           not null,
+    toId   int           not null,
+    dogId  int           not null,
+    state  int default 0 not null,
+    constraint message_pk
+        primary key (id)
+);
+
+create unique index message_id_uindex
+    on message (id);
+
+```
+
 ## 项目日志
 
 2023-2-28：
@@ -92,3 +123,9 @@ create unique index dog_id_uindex
 1. 完成用户信息接口 
 2. 创建小狗信息数据库以及小狗实体类、映射类
 2. 实现获取用户与小狗信息的接口
+
+2023-3-2
+
+1. 编写小狗与主人信息查询接口
+2. 完成message数据库建立与实体类、映射类
+3. 实现sql代码，用以查询收发信息的用户与小狗及其收养状态
