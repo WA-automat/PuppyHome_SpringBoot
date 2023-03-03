@@ -6,7 +6,7 @@
 2. MySQL
 3. MyBatis与MyBatis-plus
 
-## 数据库架构
+## 主要数据库架构
 
 ### 用户数据库
 
@@ -79,33 +79,6 @@ create table dog
 
 create unique index dog_id_uindex
     on dog (id);
-
-```
-
-### 收发信息数据库
-
-Message
-
-1. id
-2. fromId
-3. toId
-4. dogId
-5. state
-
-```mysql
-create table message
-(
-    id     int auto_increment,
-    fromId int           not null,
-    toId   int           not null,
-    dogId  int           not null,
-    state  int default 0 not null,
-    constraint message_pk
-        primary key (id)
-);
-
-create unique index message_id_uindex
-    on message (id);
 
 ```
 
