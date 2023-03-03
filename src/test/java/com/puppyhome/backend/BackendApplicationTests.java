@@ -2,6 +2,7 @@ package com.puppyhome.backend;
 
 import com.puppyhome.backend.mapper.MessageMapper;
 import com.puppyhome.backend.pojo.User;
+import com.puppyhome.backend.service.apply.ApplicationService;
 import com.puppyhome.backend.utils.JwtUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,14 @@ class BackendApplicationTests {
 	void testMessageMapper() {
 		List<User> users = messageMapper.selectFromUserByToID(4);
 		System.out.println(users.get(0));
+	}
+
+	@Autowired
+	private ApplicationService applicationService;
+
+	@Test
+	void testApplicationService() {
+		applicationService.deleteApply(4);
 	}
 
 }

@@ -19,7 +19,6 @@ public class DogOwnerServiceImpl implements DogOwnerService {
 	@Override
 	public ResponseResult selectDogsOwnerById(Integer id) {
 		User user = dogMapper.selectDogsOwnerById(id);
-		user.setId(0);
 		user.setOpenId("secretOpenId!");
 		Map<String, Object> map = new HashMap<>();
 		map.put("user", user);

@@ -41,7 +41,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 		// 当这个用户存在时返回对应的用户信息(隐藏openId)
 		Map<String, Object> map = new HashMap<>();
-		user.setId(0);
 		user.setOpenId("secretOpenId!");
 		map.put("user", user);
 

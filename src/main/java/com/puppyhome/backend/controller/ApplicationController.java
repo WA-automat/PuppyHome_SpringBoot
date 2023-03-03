@@ -24,11 +24,35 @@ public class ApplicationController {
 		);
 	}
 
-	@GetMapping("show/all")
+	@GetMapping("/show/all")
 	public ResponseResult showAllApply(
 			@RequestParam("token") String token
 	) throws Exception {
 		return applicationService.showAllApply(token);
+	}
+
+	@PostMapping("/reject")
+	public ResponseResult rejectApply(
+			@RequestParam("token") String token,
+			@RequestParam("userId") Integer userId
+	) throws Exception {
+		return applicationService.rejectApply(token, userId);
+	}
+
+	@PostMapping("/accept")
+	public ResponseResult acceptApply(
+			@RequestParam("token") String token,
+			@RequestParam("userId") Integer userId
+	) throws Exception {
+		return applicationService.acceptApply(token, userId);
+	}
+
+	@PostMapping("/delete")
+	public ResponseResult deleteAuthentication(
+			@RequestParam("token") String token,
+			@RequestParam("userId") Integer userId
+	) throws Exception {
+		return applicationService.deleteAuthentication(token, userId);
 	}
 
 }
