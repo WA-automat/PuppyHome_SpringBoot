@@ -47,7 +47,7 @@ public class ApplicationController {
 		return applicationService.acceptApply(token, userId);
 	}
 
-	@PostMapping("/delete")
+	@PostMapping("/delete/admin")
 	public ResponseResult deleteAuthentication(
 			@RequestParam("token") String token,
 			@RequestParam("userId") Integer userId
