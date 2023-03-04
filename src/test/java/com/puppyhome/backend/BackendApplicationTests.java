@@ -15,11 +15,8 @@ class BackendApplicationTests {
 
 	@Test
 	void testJwtUtil() throws Exception {
-		String jwt = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjMmFlMWVjOGE0Njk0OGFlYWMwOGU4MmY2YWNiNGU4YiIsInN1YiI6Im9KWXMxNHljXzJNSUtiRTk1cnNKOWFjRVFGaWciLCJpc3MiOiJzZyIsImlhdCI6MTY3NzY0NDgwNSwiZXhwIjoxNjc3OTA0MDA1fQ.2YNxv5Cige9tsbGKCDRM5Z5vGYeRpk-gnNToiLGpYyk";
-		System.out.println(jwt);
+		String jwt = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJiNDQ2ZmU3NDU5ZjM0MmIyYjcyNjVlNjQ4ZDA4Yjk4YyIsInN1YiI6Im9KWXMxNHljXzJNSUtiRTk1cnNKOWFjRVFGaWciLCJpc3MiOiJzZyIsImlhdCI6MTY3Nzk0NTIyNiwiZXhwIjoxNjc4MjA0NDI2fQ.rtexwte43uFtvHjVBvaZ84qu91VnujJbFbSEGJaAHKY";
 		System.out.println(JwtUtil.parseJWT(jwt).getSubject());
-		String id = "2";
-		System.out.println(JwtUtil.createJWT(id));
 	}
 
 	@Autowired
