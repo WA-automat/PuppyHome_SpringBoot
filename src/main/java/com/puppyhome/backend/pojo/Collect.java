@@ -23,7 +23,7 @@ public class Collect {
 	private Integer userId;
 
 	@NonNull
-	@TableField("dogId")
-	private Integer dogId;
+	@TableField("articleId")
+	private Integer articleId;
 
 }

@@ -30,7 +30,6 @@ public class Dog {
 	@TableField("gender")
 	private Integer gender;
 
-	@NonNull
 	@TableField("age")
 	private Double age;
 
