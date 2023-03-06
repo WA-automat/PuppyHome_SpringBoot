@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.puppyhome.backend.mapper.ArticleMapper">
+    <select id="selectAllArticleByUserId" resultType="com.puppyhome.backend.pojo.Article">
+        SELECT a.*
+        FROM article a
+                 LEFT JOIN dog d ON d.id = a.dogId
+        WHERE a.userId != #{userId}
+          AND d.state = 0;
+    </select>
 </mapper>

@@ -10,4 +10,10 @@ public interface ArticleService {
 			Date publishTime, String dogName, String photo,
 			Integer gender, Double age, String type
 	) throws Exception;
+
+	ResponseResult getArticleMsg(Integer articleId);
+
+	ResponseResult deleteArticle(String token, Integer articleId) throws Exception;
+
+	ResponseResult getUnAdoptedExceptMine(String token) throws Exception;
 }

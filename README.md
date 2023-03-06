@@ -114,3 +114,6 @@ create unique index dog_id_uindex
 
 1. 创建article数据库，并实现实体类与映射类
 2. 完成创建文章的API
+
+2023-3-6
+1. 完成文章其他相关API

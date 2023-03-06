@@ -3,10 +3,7 @@ package com.puppyhome.backend.controller;
 import com.puppyhome.backend.service.article.ArticleService;
 import com.puppyhome.backend.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -34,4 +31,27 @@ public class ArticleController {
 				dogName, photo, gender, age, type
 		);
 	}
+
+	@GetMapping("/msg")
+	public ResponseResult getArticleMsg(
+			@RequestParam("articleId") Integer articleId
+	) {
+		return articleService.getArticleMsg(articleId);
+	}
+
+	@PostMapping("/delete")
+	public ResponseResult deleteArticle(
+			@RequestParam("token") String token,
+			@RequestParam("articleId") Integer articleId
+	) throws Exception {
+		return articleService.deleteArticle(token, articleId);
+	}
+
+	@GetMapping("/except")
+	public ResponseResult getUnAdoptedExceptMine(
+			@RequestParam("token") String token
+	) throws Exception {
+		return articleService.getUnAdoptedExceptMine(token);
+	}
+
 }

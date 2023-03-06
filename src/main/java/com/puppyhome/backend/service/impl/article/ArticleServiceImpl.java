@@ -13,7 +13,7 @@ import com.puppyhome.backend.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.*;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -69,4 +69,82 @@ public class ArticleServiceImpl implements ArticleService {
 
 		return ResponseResult.success("创建文章成功");
 	}
+
+	@Override
+	public ResponseResult getArticleMsg(Integer articleId) {
+
+		// 获取文章
+		LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
+		queryWrapper.eq(Article::getId, articleId);
+		Article article = articleMapper.selectOne(queryWrapper);
+
+		// 获取文章中对应的修勾
+		LambdaQueryWrapper<Dog> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+		lambdaQueryWrapper.eq(Dog::getId, article.getDogId());
+		Dog dog = dogMapper.selectOne(lambdaQueryWrapper);
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("article", article);
+		map.put("dog", dog);
+
+		return new ResponseResult(200, "获取成功", map);
+	}
+
+	@Override
+	public ResponseResult deleteArticle(String token, Integer articleId) throws Exception {
+
+		// 获取文章
+		LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
+		queryWrapper.eq(Article::getId, articleId);
+		Article article = articleMapper.selectOne(queryWrapper);
+
+		// 获取userId
+		String openId = JwtUtil.parseJWT(token).getSubject();
+		LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+		lambdaQueryWrapper.eq(User::getOpenId, openId);
+		User user = userMapper.selectOne(lambdaQueryWrapper);
+
+		// 判断权限
+		if (!Objects.equals(user.getId(), article.getUserId())
+				&& user.getAuthentication() == 0
+		) {
+			return ResponseResult.fail("权限不足，无法删除文章");
+		}
+
+		// 删除文章
+		articleMapper.deleteById(article);
+
+		return ResponseResult.success("删除文章成功");
+	}
+
+	@Override
+	public ResponseResult getUnAdoptedExceptMine(
+			String token
+	) throws Exception {
+
+		// 获取userId
+		String openId = JwtUtil.parseJWT(token).getSubject();
+		LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+		queryWrapper.eq(User::getOpenId, openId);
+		User user = userMapper.selectOne(queryWrapper);
+		Integer userId = user.getId();
+
+		List<Article> articles = articleMapper.selectAllArticleByUserId(userId);
+
+		List<Dog> dogs = new ArrayList<>();
+		for (Article article : articles) {
+			Integer dogId = article.getDogId();
+			LambdaQueryWrapper<Dog> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+			lambdaQueryWrapper.eq(Dog::getId, dogId);
+			Dog dog = dogMapper.selectOne(lambdaQueryWrapper);
+			dogs.add(dog);
+		}
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("articles", articles);
+		map.put("dogs", dogs);
+
+		return new ResponseResult<>(200, "获取成功", map);
+	}
+
 }
