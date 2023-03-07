@@ -1,5 +1,6 @@
 package com.puppyhome.backend.controller;
 
+import com.puppyhome.backend.service.dog.DogTypeService;
 import com.puppyhome.backend.service.dog.DogsService;
 import com.puppyhome.backend.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ public class DogsController {
 
 	@Autowired
 	private DogsService dogsService;
+
+	@Autowired
+	private DogTypeService dogTypeService;
 
 	@GetMapping("/all")
 	public ResponseResult getAllDogs() {
@@ -54,6 +58,11 @@ public class DogsController {
 			@RequestParam("id") Integer id
 	){
 		return dogsService.getMsg(id);
+	}
+
+	@GetMapping("/type")
+	public ResponseResult getAllType(){
+		return dogTypeService.getAllType();
 	}
 
 }
