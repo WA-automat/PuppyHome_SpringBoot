@@ -56,12 +56,12 @@ public class DogsController {
 	@GetMapping("/msg")
 	public ResponseResult getMsg(
 			@RequestParam("id") Integer id
-	){
+	) {
 		return dogsService.getMsg(id);
 	}
 
 	@GetMapping("/type")
-	public ResponseResult getAllType(){
+	public ResponseResult getAllType() {
 		return dogTypeService.getAllType();
 	}
 

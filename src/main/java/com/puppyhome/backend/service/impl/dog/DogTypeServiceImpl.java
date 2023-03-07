@@ -21,7 +21,7 @@ public class DogTypeServiceImpl implements DogTypeService {
 	@Override
 	public ResponseResult getAllType() {
 
-		List<Type> typeList = typeMapper.selectList(null);
+		List<String> typeList = typeMapper.selectTypes();
 		Map<String, Object> map = new HashMap<>();
 		map.put("typeList", typeList);
 		return new ResponseResult<>(200, "获取成功", map);
