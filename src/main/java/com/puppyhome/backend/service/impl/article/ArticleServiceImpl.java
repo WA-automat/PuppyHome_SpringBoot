@@ -2,9 +2,11 @@ package com.puppyhome.backend.service.impl.article;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.puppyhome.backend.mapper.ArticleMapper;
+import com.puppyhome.backend.mapper.CollectMapper;
 import com.puppyhome.backend.mapper.DogMapper;
 import com.puppyhome.backend.mapper.UserMapper;
 import com.puppyhome.backend.pojo.Article;
+import com.puppyhome.backend.pojo.Collect;
 import com.puppyhome.backend.pojo.Dog;
 import com.puppyhome.backend.pojo.User;
 import com.puppyhome.backend.service.article.ArticleService;
@@ -26,6 +28,9 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Autowired
 	private ArticleMapper articleMapper;
+
+	@Autowired
+	private CollectMapper collectMapper;
 
 	@Override
 	public ResponseResult createArticle(
@@ -111,6 +116,11 @@ public class ArticleServiceImpl implements ArticleService {
 			return ResponseResult.fail("权限不足，无法删除文章");
 		}
 
+		// 删除所有收藏
+		LambdaQueryWrapper<Collect> lambdaQuery = new LambdaQueryWrapper<>();
+		lambdaQuery.eq(Collect::getArticleId, articleId);
+		collectMapper.delete(lambdaQuery);
+
 		// 删除文章
 		articleMapper.deleteById(article);
 
@@ -137,6 +147,37 @@ public class ArticleServiceImpl implements ArticleService {
 			LambdaQueryWrapper<Dog> lambdaQueryWrapper = new LambdaQueryWrapper<>();
 			lambdaQueryWrapper.eq(Dog::getId, dogId);
 			Dog dog = dogMapper.selectOne(lambdaQueryWrapper);
+			dogs.add(dog);
+		}
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("articles", articles);
+		map.put("dogs", dogs);
+
+		return new ResponseResult<>(200, "获取成功", map);
+	}
+
+	@Override
+	public ResponseResult getMyArticle(String token) throws Exception {
+
+		// 获取userId
+		String openId = JwtUtil.parseJWT(token).getSubject();
+		LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+		queryWrapper.eq(User::getOpenId, openId);
+		User user = userMapper.selectOne(queryWrapper);
+		Integer userId = user.getId();
+
+		// 获取所有自己的文章
+		LambdaQueryWrapper<Article> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+		lambdaQueryWrapper.eq(Article::getUserId, userId);
+		List<Article> articles = articleMapper.selectList(lambdaQueryWrapper);
+
+		List<Dog> dogs = new ArrayList<>();
+		for (Article article : articles) {
+			Integer dogId = article.getDogId();
+			LambdaQueryWrapper<Dog> dogLambdaQueryWrapper = new LambdaQueryWrapper<>();
+			dogLambdaQueryWrapper.eq(Dog::getId, dogId);
+			Dog dog = dogMapper.selectOne(dogLambdaQueryWrapper);
 			dogs.add(dog);
 		}
 

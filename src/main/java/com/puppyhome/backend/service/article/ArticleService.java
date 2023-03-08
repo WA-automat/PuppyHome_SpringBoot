@@ -16,4 +16,6 @@ public interface ArticleService {
 	ResponseResult deleteArticle(String token, Integer articleId) throws Exception;
 
 	ResponseResult getUnAdoptedExceptMine(String token) throws Exception;
+
+	ResponseResult getMyArticle(String token) throws Exception;
 }

@@ -119,3 +119,6 @@ create unique index dog_id_uindex
 1. 完成文章其他相关API
 2. 创建Type数据库及其实体类与映射类
 3. 完成返回所有小狗类别的API
+
+2023-3-8
+1. 完成收藏的增删改查API

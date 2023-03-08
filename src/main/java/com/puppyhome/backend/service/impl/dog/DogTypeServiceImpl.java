@@ -1,7 +1,6 @@
 package com.puppyhome.backend.service.impl.dog;
 
 import com.puppyhome.backend.mapper.TypeMapper;
-import com.puppyhome.backend.pojo.Type;
 import com.puppyhome.backend.service.dog.DogTypeService;
 import com.puppyhome.backend.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ public class DogTypeServiceImpl implements DogTypeService {
 	@Autowired
 	private TypeMapper typeMapper;
 
-	// TODO 创建数据库并将类别返回给前端
 	@Override
 	public ResponseResult getAllType() {
 
