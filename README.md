@@ -122,3 +122,6 @@ create unique index dog_id_uindex
 
 2023-3-8
 1. 完成收藏的增删改查API
+2. 调试CORS模块配置
+
+2023-3-9
