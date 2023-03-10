@@ -9,6 +9,7 @@ import com.puppyhome.backend.pojo.Article;
 import com.puppyhome.backend.pojo.Collect;
 import com.puppyhome.backend.pojo.Dog;
 import com.puppyhome.backend.pojo.User;
+import com.puppyhome.backend.service.adoption.AdoptMessageService;
 import com.puppyhome.backend.service.article.ArticleService;
 import com.puppyhome.backend.utils.JwtUtil;
 import com.puppyhome.backend.utils.ResponseResult;
@@ -31,6 +32,9 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Autowired
 	private CollectMapper collectMapper;
+
+	@Autowired
+	private AdoptMessageService adoptMessageService;
 
 	@Override
 	public ResponseResult createArticle(
@@ -137,6 +141,9 @@ public class ArticleServiceImpl implements ArticleService {
 		LambdaQueryWrapper<Collect> lambdaQuery = new LambdaQueryWrapper<>();
 		lambdaQuery.eq(Collect::getArticleId, articleId);
 		collectMapper.delete(lambdaQuery);
+
+		// 删除所有收养信息
+		adoptMessageService.deleteAdoptMessage(articleId);
 
 		// 删除文章
 		articleMapper.deleteById(article);
