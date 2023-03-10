@@ -11,7 +11,7 @@ public interface ArticleService {
 			Integer gender, Double age, String type
 	) throws Exception;
 
-	ResponseResult getArticleMsg(Integer articleId);
+	ResponseResult getArticleMsg(String token, Integer articleId) throws Exception;
 
 	ResponseResult deleteArticle(String token, Integer articleId) throws Exception;
 

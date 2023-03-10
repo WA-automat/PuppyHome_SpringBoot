@@ -34,9 +34,10 @@ public class ArticleController {
 
 	@GetMapping("/msg")
 	public ResponseResult getArticleMsg(
+			@RequestParam("token") String token,
 			@RequestParam("articleId") Integer articleId
-	) {
-		return articleService.getArticleMsg(articleId);
+	) throws Exception {
+		return articleService.getArticleMsg(token, articleId);
 	}
 
 	@PostMapping("/delete")

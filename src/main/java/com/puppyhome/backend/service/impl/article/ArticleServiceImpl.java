@@ -76,7 +76,14 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public ResponseResult getArticleMsg(Integer articleId) {
+	public ResponseResult getArticleMsg(String token, Integer articleId) throws Exception {
+
+		// 获取userId
+		String subject = JwtUtil.parseJWT(token).getSubject();
+		LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+		wrapper.eq(User::getOpenId, subject);
+		User user = userMapper.selectOne(wrapper);
+		Integer userId = user.getId();
 
 		// 获取文章
 		LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
@@ -88,9 +95,19 @@ public class ArticleServiceImpl implements ArticleService {
 		lambdaQueryWrapper.eq(Dog::getId, article.getDogId());
 		Dog dog = dogMapper.selectOne(lambdaQueryWrapper);
 
+		// 返回对象
 		Map<String, Object> map = new HashMap<>();
 		map.put("article", article);
 		map.put("dog", dog);
+
+		// 查询是否为被收藏的文章
+		LambdaQueryWrapper<Collect> qWrapper = new LambdaQueryWrapper<>();
+		qWrapper
+				.eq(Collect::getUserId, userId)
+				.eq(Collect::getArticleId, articleId);
+		Collect collect = collectMapper.selectOne(qWrapper);
+		Boolean isCollect = !Objects.isNull(collect);
+		map.put("isCollect", isCollect);
 
 		return new ResponseResult(200, "获取成功", map);
 	}
