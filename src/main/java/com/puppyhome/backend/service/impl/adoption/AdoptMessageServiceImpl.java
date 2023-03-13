@@ -41,6 +41,16 @@ public class AdoptMessageServiceImpl implements AdoptMessageService {
 		User user = userMapper.selectOne(queryWrapper);
 		Integer userId = user.getId();
 
+		// 判断是否重复点击收养
+		LambdaQueryWrapper<Adoption> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+		lambdaQueryWrapper
+				.eq(Adoption::getUserId, userId)
+				.eq(Adoption::getArticleId, articleId);
+		Adoption obj = adoptionMapper.selectOne(lambdaQueryWrapper);
+		if (!Objects.isNull(obj)) {
+			return ResponseResult.fail("请勿重复提交收养申请");
+		}
+
 		// 数据库中存入申请
 		Adoption adoption = new Adoption(
 				null, userId, articleId
