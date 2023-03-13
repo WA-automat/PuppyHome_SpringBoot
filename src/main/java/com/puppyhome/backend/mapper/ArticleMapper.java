@@ -9,4 +9,5 @@ import java.util.List;
 @Mapper
 public interface ArticleMapper extends BaseMapper<Article> {
 	List<Article> selectAllArticleByUserId(Integer userId);
+	List<Article> selectArticleBySubDogType(Integer userId, String subDogType);
 }

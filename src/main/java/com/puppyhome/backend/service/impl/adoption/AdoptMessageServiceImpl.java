@@ -9,9 +9,7 @@ import com.puppyhome.backend.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class AdoptMessageServiceImpl implements AdoptMessageService {
@@ -138,9 +136,31 @@ public class AdoptMessageServiceImpl implements AdoptMessageService {
 		Integer userId = user.getId();
 
 		// 获取收养信息
+		LambdaQueryWrapper<Adoption> queryWrapper = new LambdaQueryWrapper<>();
+		queryWrapper.eq(Adoption::getUserId, userId);
+		List<Adoption> adoptions = adoptionMapper.selectList(queryWrapper);
 
+		// 获取用户和文章
+		List<Object> list = new ArrayList<>();
+		for (Adoption item : adoptions) {
+			Map<String, Object> map = new HashMap<>();
+			LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+			wrapper.eq(User::getId, item.getUserId());
+			User tmpUser = userMapper.selectOne(wrapper);
+			LambdaQueryWrapper<Article> articleQueryWrapper = new LambdaQueryWrapper<>();
+			articleQueryWrapper.eq(Article::getId, item.getArticleId());
+			Article tmpArticle = articleMapper.selectOne(articleQueryWrapper);
+			tmpUser.setOpenId("secretOpenId!");
+			map.put("user", tmpUser);
+			map.put("article", tmpArticle);
+			list.add(map);
+		}
 
-		return null;
+		// 添加返回对象
+		Map<String, Object> data = new HashMap<>();
+		data.put("adopt", list);
+
+		return new ResponseResult<>(200, "获取成功", list);
 	}
 
 	@Override
@@ -154,9 +174,29 @@ public class AdoptMessageServiceImpl implements AdoptMessageService {
 		Integer userId = user.getId();
 
 		// 获取收养信息
+		List<Adoption> adoptions = adoptionMapper.selectAdoptionByArticleOwnerId(userId);
 
+		// 获取返回列表
+		List<Object> list = new ArrayList<>();
+		for (Adoption item : adoptions) {
+			Map<String, Object> map = new HashMap<>();
+			LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+			wrapper.eq(User::getId, item.getUserId());
+			User tmpUser = userMapper.selectOne(wrapper);
+			LambdaQueryWrapper<Article> articleQueryWrapper = new LambdaQueryWrapper<>();
+			articleQueryWrapper.eq(Article::getId, item.getArticleId());
+			Article tmpArticle = articleMapper.selectOne(articleQueryWrapper);
+			tmpUser.setOpenId("secretOpenId!");
+			map.put("user", tmpUser);
+			map.put("article", tmpArticle);
+			list.add(map);
+		}
 
-		return null;
+		// 添加返回对象
+		Map<String, Object> data = new HashMap<>();
+		data.put("adopt", list);
+
+		return new ResponseResult<>(200, "获取成功", list);
 	}
 
 	@Override

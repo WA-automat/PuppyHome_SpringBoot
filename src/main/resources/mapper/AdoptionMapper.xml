@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.puppyhome.backend.mapper.AdoptionMapper">
+    <select id="selectAdoptionByArticleOwnerId" resultType="com.puppyhome.backend.pojo.Adoption">
+        SELECT ad.*
+        FROM adoption ad
+                 LEFT JOIN article ar ON ar.id = ad.articleId
+        WHERE ar.userId = #{articleOwnerId};
+    </select>
 </mapper>

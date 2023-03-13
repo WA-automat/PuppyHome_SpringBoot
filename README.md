@@ -130,3 +130,5 @@ create unique index dog_id_uindex
 
 2023-3-13
 1. 完成收养信息部分API（包括：发送，删除，接收，展示）
+2. debug 收养接口
+3. 完成搜索接口
