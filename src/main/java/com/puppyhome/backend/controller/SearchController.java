@@ -19,7 +19,7 @@ public class SearchController {
 	public ResponseResult searchArticle(
 			@RequestParam("token") String token,
 			@RequestParam("subType") String subType
-	){
+	) throws Exception {
 		return searchService.searchArticle(token, subType);
 	}
 
