@@ -2,9 +2,11 @@ package com.puppyhome.backend.service.impl.collect;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.puppyhome.backend.mapper.CollectMapper;
+import com.puppyhome.backend.mapper.DogMapper;
 import com.puppyhome.backend.mapper.UserMapper;
 import com.puppyhome.backend.pojo.Article;
 import com.puppyhome.backend.pojo.Collect;
+import com.puppyhome.backend.pojo.Dog;
 import com.puppyhome.backend.pojo.User;
 import com.puppyhome.backend.service.collect.CollectService;
 import com.puppyhome.backend.utils.JwtUtil;
@@ -12,6 +14,7 @@ import com.puppyhome.backend.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +28,9 @@ public class CollectServiceImpl implements CollectService {
 	@Autowired
 	private CollectMapper collectMapper;
 
+	@Autowired
+	private DogMapper dogMapper;
+
 	@Override
 	public ResponseResult getMyCollect(String token) throws Exception {
 
@@ -37,8 +43,19 @@ public class CollectServiceImpl implements CollectService {
 
 		// 数据库创建方法获取文章信息
 		List<Article> articles = collectMapper.selectArticleByUserId(userId);
+
+		List<Dog> dogs = new ArrayList<>();
+		for (Article article : articles) {
+			Integer dogId = article.getDogId();
+			LambdaQueryWrapper<Dog> dogLambdaQueryWrapper = new LambdaQueryWrapper<>();
+			dogLambdaQueryWrapper.eq(Dog::getId, dogId);
+			Dog dog = dogMapper.selectOne(dogLambdaQueryWrapper);
+			dogs.add(dog);
+		}
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("articles", articles);
+		map.put("dogs", dogs);
 
 		return new ResponseResult<>(200, "获取成功", map);
 	}
