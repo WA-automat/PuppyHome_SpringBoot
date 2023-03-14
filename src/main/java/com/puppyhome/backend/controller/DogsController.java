@@ -6,6 +6,10 @@ import com.puppyhome.backend.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 @RestController
 @RequestMapping("/dogs")
 public class DogsController {
@@ -61,8 +65,8 @@ public class DogsController {
 	}
 
 	@GetMapping("/type")
-	public ResponseResult getAllType() {
-		return dogTypeService.getAllType();
+	public ResponseResult getAllType() throws ExecutionException, InterruptedException, TimeoutException {
+		return dogTypeService.getAllType().get(60, TimeUnit.SECONDS);
 	}
 
 }

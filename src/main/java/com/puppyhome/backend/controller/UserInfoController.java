@@ -5,6 +5,8 @@ import com.puppyhome.backend.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.TimeUnit;
+
 @RestController
 @RequestMapping("/user")
 public class UserInfoController {
@@ -16,7 +18,7 @@ public class UserInfoController {
 	public ResponseResult getUserInfo(
 			@RequestParam("token") String token
 	) throws Exception {
-		return userInfoService.getUserInfo(token);
+		return userInfoService.getUserInfo(token).get(60, TimeUnit.SECONDS);
 	}
 
 	@PostMapping("/set/info")

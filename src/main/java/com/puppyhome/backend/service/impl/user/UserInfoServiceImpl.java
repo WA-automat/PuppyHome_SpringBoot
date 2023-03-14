@@ -8,12 +8,15 @@ import com.puppyhome.backend.service.user.UserInfoService;
 import com.puppyhome.backend.utils.JwtUtil;
 import com.puppyhome.backend.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.Future;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
@@ -24,7 +27,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 	private final String host = "https://puppyhome-1317060763.cos.ap-guangzhou.myqcloud.com";
 
 	@Override
-	public ResponseResult getUserInfo(String token) throws Exception {
+	@Async("asyncThreadPoolTaskExecutor")
+	public Future<ResponseResult> getUserInfo(String token) throws Exception {
 
 		// 获取openId
 		String openId = JwtUtil.parseJWT(token).getSubject();
@@ -36,7 +40,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 		// 当这个用户不存在时，返回提示信息
 		if (Objects.isNull(user)) {
-			return ResponseResult.fail("用户不存在");
+			return new AsyncResult<>(ResponseResult.fail("用户不存在"));
 		}
 
 		// 当这个用户存在时返回对应的用户信息(隐藏openId)
@@ -44,7 +48,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		user.setOpenId("secretOpenId!");
 		map.put("user", user);
 
-		return new ResponseResult(200, "获取用户信息成功", map);
+		return new AsyncResult<>(new ResponseResult(200, "获取用户信息成功", map));
 	}
 
 	@Override

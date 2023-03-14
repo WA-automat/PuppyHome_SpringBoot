@@ -6,7 +6,9 @@
 2. MySQL
 3. MyBatis与MyBatis-plus
 4. Redis
-5. wx server api
+5. RestTemplate 结合 wx server api
+6. Jwt
+7. Swagger2
 
 ## 主要数据库架构
 
