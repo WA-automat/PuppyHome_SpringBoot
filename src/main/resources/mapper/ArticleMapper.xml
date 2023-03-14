@@ -15,4 +15,18 @@
         WHERE position(#{subDogType} in d.type) > 0
           AND a.userId != #{userId};
     </select>
+    <select id="selectAdoptedArticleByUserId" resultType="com.puppyhome.backend.pojo.Article">
+        SELECT a.*
+        FROM article a
+                 LEFT JOIN dog d ON d.id = a.dogId
+        WHERE a.userId = #{userId}
+          AND d.state = 1
+    </select>
+    <select id="selectUnAdoptArticleByUserId" resultType="com.puppyhome.backend.pojo.Article">
+        SELECT a.*
+        FROM article a
+                 LEFT JOIN dog d ON d.id = a.dogId
+        WHERE a.userId = #{userId}
+          AND d.state = 0
+    </select>
 </mapper>

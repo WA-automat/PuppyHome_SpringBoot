@@ -10,4 +10,6 @@ import java.util.List;
 public interface ArticleMapper extends BaseMapper<Article> {
 	List<Article> selectAllArticleByUserId(Integer userId);
 	List<Article> selectArticleBySubDogType(Integer userId, String subDogType);
+	List<Article> selectAdoptedArticleByUserId(Integer userId);
+	List<Article> selectUnAdoptArticleByUserId(Integer userId);
 }

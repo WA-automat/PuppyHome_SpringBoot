@@ -55,11 +55,25 @@ public class ArticleController {
 		return articleService.getUnAdoptedExceptMine(token);
 	}
 
-	@GetMapping("/mine")
+	@GetMapping("/mine/all")
 	public ResponseResult getMyArticle(
 			@RequestParam("token") String token
 	) throws Exception {
 		return articleService.getMyArticle(token);
+	}
+
+	@GetMapping("/mine/adopted")
+	public ResponseResult getMyAdoptedArticle(
+			@RequestParam("token") String token
+	) throws Exception {
+		return articleService.getMyAdoptedArticle(token);
+	}
+
+	@GetMapping("/mine/unadopted")
+	public ResponseResult getMyUnadoptedArticle(
+			@RequestParam("token") String token
+	) throws Exception {
+		return articleService.getMyUnadoptedArticle(token);
 	}
 
 }

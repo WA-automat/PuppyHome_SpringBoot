@@ -212,4 +212,64 @@ public class ArticleServiceImpl implements ArticleService {
 		return new ResponseResult<>(200, "获取成功", map);
 	}
 
+	@Override
+	public ResponseResult getMyAdoptedArticle(String token) throws Exception {
+
+		// 获取userId
+		String openId = JwtUtil.parseJWT(token).getSubject();
+		LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+		queryWrapper.eq(User::getOpenId, openId);
+		User user = userMapper.selectOne(queryWrapper);
+		Integer userId = user.getId();
+
+		// 获取文章列表
+		List<Article> articles = articleMapper.selectAdoptedArticleByUserId(userId);
+
+		// 处理狗列表
+		List<Dog> dogs = new ArrayList<>();
+		for (Article article : articles) {
+			Integer dogId = article.getDogId();
+			LambdaQueryWrapper<Dog> dogLambdaQueryWrapper = new LambdaQueryWrapper<>();
+			dogLambdaQueryWrapper.eq(Dog::getId, dogId);
+			Dog dog = dogMapper.selectOne(dogLambdaQueryWrapper);
+			dogs.add(dog);
+		}
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("articles", articles);
+		map.put("dogs", dogs);
+
+		return new ResponseResult<>(200, "获取成功", map);
+	}
+
+	@Override
+	public ResponseResult getMyUnadoptedArticle(String token) throws Exception {
+
+		// 获取userId
+		String openId = JwtUtil.parseJWT(token).getSubject();
+		LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+		queryWrapper.eq(User::getOpenId, openId);
+		User user = userMapper.selectOne(queryWrapper);
+		Integer userId = user.getId();
+
+		// 获取文章列表
+		List<Article> articles = articleMapper.selectUnAdoptArticleByUserId(userId);
+
+		// 处理狗列表
+		List<Dog> dogs = new ArrayList<>();
+		for (Article article : articles) {
+			Integer dogId = article.getDogId();
+			LambdaQueryWrapper<Dog> dogLambdaQueryWrapper = new LambdaQueryWrapper<>();
+			dogLambdaQueryWrapper.eq(Dog::getId, dogId);
+			Dog dog = dogMapper.selectOne(dogLambdaQueryWrapper);
+			dogs.add(dog);
+		}
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("articles", articles);
+		map.put("dogs", dogs);
+
+		return new ResponseResult<>(200, "获取成功", map);
+	}
+
 }

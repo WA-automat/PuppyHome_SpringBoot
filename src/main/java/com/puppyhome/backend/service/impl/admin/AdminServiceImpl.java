@@ -46,7 +46,7 @@ public class AdminServiceImpl implements AdminService {
 		List<User> generalAdmin = userMapper.selectList(lambdaQueryWrapper);
 
 		// 好看的流
-		generalAdmin.forEach(adminUser-> adminUser.setOpenId("secretOpenId!"));
+		generalAdmin.forEach(adminUser -> adminUser.setOpenId("secretOpenId!"));
 
 		// 返回信息
 		Map<String, Object> map = new HashMap<>();
@@ -80,7 +80,7 @@ public class AdminServiceImpl implements AdminService {
 		List<User> superAdmin = userMapper.selectList(lambdaQueryWrapper);
 
 		// 同样用了foreach
-		superAdmin.forEach(adminUser-> adminUser.setOpenId("secretOpenId!"));
+		superAdmin.forEach(adminUser -> adminUser.setOpenId("secretOpenId!"));
 
 		// 返回信息
 		Map<String, Object> map = new HashMap<>();

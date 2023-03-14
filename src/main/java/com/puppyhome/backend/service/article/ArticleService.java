@@ -18,4 +18,8 @@ public interface ArticleService {
 	ResponseResult getUnAdoptedExceptMine(String token) throws Exception;
 
 	ResponseResult getMyArticle(String token) throws Exception;
+
+	ResponseResult getMyAdoptedArticle(String token) throws Exception;
+
+	ResponseResult getMyUnadoptedArticle(String token) throws Exception;
 }

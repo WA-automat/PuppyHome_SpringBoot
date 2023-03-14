@@ -117,12 +117,7 @@ public class AdoptMessageServiceImpl implements AdoptMessageService {
 		dog.setState(1);
 		dogMapper.updateById(dog);
 
-		// 返回收养者信息以供联系
-		Map<String, Object> map = new HashMap<>();
-		adoptUser.setOpenId("secretOpenId!");
-		map.put("user", adoptUser);
-
-		return new ResponseResult<>(200, "收养成功", map);
+		return new ResponseResult<>(200, "收养成功", null);
 	}
 
 	@Override
@@ -160,7 +155,7 @@ public class AdoptMessageServiceImpl implements AdoptMessageService {
 		Map<String, Object> data = new HashMap<>();
 		data.put("adopt", list);
 
-		return new ResponseResult<>(200, "获取成功", list);
+		return new ResponseResult<>(200, "获取成功", data);
 	}
 
 	@Override
@@ -189,6 +184,7 @@ public class AdoptMessageServiceImpl implements AdoptMessageService {
 			tmpUser.setOpenId("secretOpenId!");
 			map.put("user", tmpUser);
 			map.put("article", tmpArticle);
+			map.put("id", item.getId());
 			list.add(map);
 		}
 
@@ -196,7 +192,7 @@ public class AdoptMessageServiceImpl implements AdoptMessageService {
 		Map<String, Object> data = new HashMap<>();
 		data.put("adopt", list);
 
-		return new ResponseResult<>(200, "获取成功", list);
+		return new ResponseResult<>(200, "获取成功", data);
 	}
 
 	@Override

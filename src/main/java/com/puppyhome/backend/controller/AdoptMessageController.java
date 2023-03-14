@@ -28,14 +28,7 @@ public class AdoptMessageController {
 		return adoptMessageService.acceptAdoptMessage(token, adoptId);
 	}
 
-	@GetMapping("/show/from")
-	private ResponseResult showAdoptMessageFromMe(
-			@RequestParam("token") String token
-	) throws Exception {
-		return adoptMessageService.showAdoptMessageFromMe(token);
-	}
-
-	@GetMapping("/show/to")
+	@GetMapping("/show")
 	private ResponseResult showAdoptMessageToMe(
 			@RequestParam("token") String token
 	) throws Exception {
