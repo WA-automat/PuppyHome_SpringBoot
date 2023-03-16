@@ -23,7 +23,8 @@ public class ImagePredictController {
 	@GetMapping("/predict")
 	public ResponseResult imagePredict(
 			@RequestParam("url") String url
-	) throws TranslateException, ModelNotFoundException, MalformedModelException, IOException {
+	) throws TranslateException, ModelNotFoundException,
+			MalformedModelException, IOException {
 		return imagePredictService.imagePredict(url);
 	}
 

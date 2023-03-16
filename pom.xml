@@ -165,11 +165,18 @@
             <scope>runtime</scope>
             <version>1.13.1</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/ai.djl.pytorch/pytorch-jni -->
         <dependency>
             <groupId>ai.djl.pytorch</groupId>
             <artifactId>pytorch-jni</artifactId>
-            <version>1.13.1-0.21.0</version>
-            <scope>runtime</scope>
+            <version>1.13.0-0.20.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/ai.djl.mxnet/mxnet-model-zoo -->
+        <dependency>
+            <groupId>ai.djl.mxnet</groupId>
+            <artifactId>mxnet-model-zoo</artifactId>
+            <version>0.21.0</version>
         </dependency>
 
     </dependencies>
