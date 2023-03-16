@@ -61,7 +61,7 @@ class BackendApplicationTests {
 				.optApplication(Application.CV.IMAGE_CLASSIFICATION)
 				.setTypes(Image.class, Classifications.class)
 				.optEngine("PyTorch")
-				.optModelUrls("https://puppyhome-1317060763.cos.ap-guangzhou.myqcloud.com/build/")
+				.optModelUrls("file:///build/pytorch_models/resnet18/")
 				.optModelName("resnet18-puppyhome-v25.pth")
 //				.optOption("mapLocation", "true") // this model requires mapLocation for GPU
 				.optTranslator(translator)
