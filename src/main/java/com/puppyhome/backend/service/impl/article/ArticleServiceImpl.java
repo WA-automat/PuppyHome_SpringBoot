@@ -82,13 +82,6 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public ResponseResult getArticleMsg(String token, Integer articleId) throws Exception {
 
-		// 获取userId
-		String subject = JwtUtil.parseJWT(token).getSubject();
-		LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
-		wrapper.eq(User::getOpenId, subject);
-		User user = userMapper.selectOne(wrapper);
-		Integer userId = user.getId();
-
 		// 获取文章
 		LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
 		queryWrapper.eq(Article::getId, articleId);
@@ -104,14 +97,27 @@ public class ArticleServiceImpl implements ArticleService {
 		map.put("article", article);
 		map.put("dog", dog);
 
-		// 查询是否为被收藏的文章
-		LambdaQueryWrapper<Collect> qWrapper = new LambdaQueryWrapper<>();
-		qWrapper
-				.eq(Collect::getUserId, userId)
-				.eq(Collect::getArticleId, articleId);
-		Collect collect = collectMapper.selectOne(qWrapper);
-		Boolean isCollect = !Objects.isNull(collect);
-		map.put("isCollect", isCollect);
+		// 获取userId
+		String subject = JwtUtil.parseJWT(token).getSubject();
+		LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+		wrapper.eq(User::getOpenId, subject);
+		User user = userMapper.selectOne(wrapper);
+
+		if (Objects.isNull(user)) {
+			map.put("isCollect", false);
+		} else {
+			Integer userId = user.getId();
+
+			// 查询是否为被收藏的文章
+			LambdaQueryWrapper<Collect> qWrapper = new LambdaQueryWrapper<>();
+			qWrapper
+					.eq(Collect::getUserId, userId)
+					.eq(Collect::getArticleId, articleId);
+			Collect collect = collectMapper.selectOne(qWrapper);
+			Boolean isCollect = !Objects.isNull(collect);
+			map.put("isCollect", isCollect);
+		}
+
 
 		return new ResponseResult(200, "获取成功", map);
 	}
@@ -161,9 +167,14 @@ public class ArticleServiceImpl implements ArticleService {
 		LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
 		queryWrapper.eq(User::getOpenId, openId);
 		User user = userMapper.selectOne(queryWrapper);
-		Integer userId = user.getId();
 
-		List<Article> articles = articleMapper.selectAllArticleByUserId(userId);
+		List<Article> articles = null;
+		if (Objects.isNull(user)) {
+			articles = articleMapper.selectAllUnAdoptArticle();
+		} else {
+			Integer userId = user.getId();
+			articles = articleMapper.selectAllArticleByUserId(userId);
+		}
 
 		List<Dog> dogs = new ArrayList<>();
 		for (Article article : articles) {

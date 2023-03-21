@@ -181,7 +181,7 @@ public class AdoptMessageServiceImpl implements AdoptMessageService {
 			LambdaQueryWrapper<Article> articleQueryWrapper = new LambdaQueryWrapper<>();
 			articleQueryWrapper.eq(Article::getId, item.getArticleId());
 			Article tmpArticle = articleMapper.selectOne(articleQueryWrapper);
-			tmpUser.setOpenId("secretOpenId!");
+//			tmpUser.setOpenId("secretOpenId!");
 			map.put("user", tmpUser);
 			map.put("article", tmpArticle);
 			map.put("id", item.getId());

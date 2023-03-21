@@ -148,3 +148,12 @@ create unique index dog_id_uindex
 1. 设计分类模型
 2. 创建预测类别接口并实现
 
+2023-3-18：
+1. 完善模型
+2. 创建flask项目并实现预测接口
+3. 结合SpringBoot与flask项目的预测接口
+4. 增加getUserInfo接口信息
+
+2023-3-21：
+
+1. 预测接口修改为异步方法

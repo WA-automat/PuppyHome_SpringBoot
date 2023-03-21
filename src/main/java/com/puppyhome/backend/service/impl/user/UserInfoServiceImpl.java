@@ -1,7 +1,9 @@
 package com.puppyhome.backend.service.impl.user;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.puppyhome.backend.mapper.AdoptionMapper;
 import com.puppyhome.backend.mapper.UserMapper;
+import com.puppyhome.backend.pojo.Adoption;
 import com.puppyhome.backend.pojo.Dog;
 import com.puppyhome.backend.pojo.User;
 import com.puppyhome.backend.service.user.UserInfoService;
@@ -24,6 +26,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Autowired
 	private UserMapper userMapper;
 
+	@Autowired
+	private AdoptionMapper adoptionMapper;
+
 	private final String host = "https://puppyhome-1317060763.cos.ap-guangzhou.myqcloud.com";
 
 	@Override
@@ -38,6 +43,13 @@ public class UserInfoServiceImpl implements UserInfoService {
 		queryWrapper.eq(User::getOpenId, openId);
 		User user = userMapper.selectOne(queryWrapper);
 
+		List<Adoption> adoptions = adoptionMapper.selectAdoptionByArticleOwnerId(user.getId());
+
+		String haveNewMsg = "true";
+		if (adoptions.size() == 0) {
+			haveNewMsg = "false";
+		}
+
 		// 当这个用户不存在时，返回提示信息
 		if (Objects.isNull(user)) {
 			return new AsyncResult<>(ResponseResult.fail("用户不存在"));
@@ -47,6 +59,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		Map<String, Object> map = new HashMap<>();
 		user.setOpenId("secretOpenId!");
 		map.put("user", user);
+		map.put("haveNewMsg", haveNewMsg);
 
 		return new AsyncResult<>(new ResponseResult(200, "获取用户信息成功", map));
 	}

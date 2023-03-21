@@ -29,4 +29,10 @@
         WHERE a.userId = #{userId}
           AND d.state = 0
     </select>
+    <select id="selectAllUnAdoptArticle" resultType="com.puppyhome.backend.pojo.Article">
+        SELECT a.*
+        FROM article a
+            LEFT JOIN dog d ON d.id = a.dogId
+        WHERE d.state = 0
+    </select>
 </mapper>

@@ -1,8 +1,5 @@
 package com.puppyhome.backend.controller;
 
-import ai.djl.MalformedModelException;
-import ai.djl.repository.zoo.ModelNotFoundException;
-import ai.djl.translate.TranslateException;
 import com.puppyhome.backend.service.predict.ImagePredictService;
 import com.puppyhome.backend.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 @RestController
 @RequestMapping("/image")
@@ -23,9 +23,8 @@ public class ImagePredictController {
 	@GetMapping("/predict")
 	public ResponseResult imagePredict(
 			@RequestParam("url") String url
-	) throws TranslateException, ModelNotFoundException,
-			MalformedModelException, IOException {
-		return imagePredictService.imagePredict(url);
+	) throws IOException, ExecutionException, InterruptedException, TimeoutException {
+		return imagePredictService.imagePredict(url).get(180, TimeUnit.SECONDS);
 	}
 
 }

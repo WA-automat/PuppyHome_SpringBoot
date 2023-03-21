@@ -151,33 +151,33 @@
         <!--            <version>5.6.89</version>-->
         <!--        </dependency>-->
 
-        <!--链接pytorch-->
-        <!-- https://mvnrepository.com/artifact/ai.djl.pytorch/pytorch-engine -->
-        <dependency>
-            <groupId>ai.djl.pytorch</groupId>
-            <artifactId>pytorch-engine</artifactId>
-            <version>0.21.0</version>
-        </dependency>
-        <dependency>
-            <groupId>ai.djl.pytorch</groupId>
-            <artifactId>pytorch-native-cpu</artifactId>
-            <classifier>win-x86_64</classifier>
-            <scope>runtime</scope>
-            <version>1.13.1</version>
-        </dependency>
+<!--        &lt;!&ndash;链接pytorch&ndash;&gt;-->
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/ai.djl.pytorch/pytorch-engine &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>ai.djl.pytorch</groupId>-->
+<!--            <artifactId>pytorch-engine</artifactId>-->
+<!--            <version>0.21.0</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>ai.djl.pytorch</groupId>-->
+<!--            <artifactId>pytorch-native-cpu</artifactId>-->
+<!--            <classifier>win-x86_64</classifier>-->
+<!--            <scope>runtime</scope>-->
+<!--            <version>1.13.1</version>-->
+<!--        </dependency>-->
 
-        <!-- https://mvnrepository.com/artifact/ai.djl.pytorch/pytorch-jni -->
-        <dependency>
-            <groupId>ai.djl.pytorch</groupId>
-            <artifactId>pytorch-jni</artifactId>
-            <version>1.13.0-0.20.0</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/ai.djl.mxnet/mxnet-model-zoo -->
-        <dependency>
-            <groupId>ai.djl.mxnet</groupId>
-            <artifactId>mxnet-model-zoo</artifactId>
-            <version>0.21.0</version>
-        </dependency>
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/ai.djl.pytorch/pytorch-jni &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>ai.djl.pytorch</groupId>-->
+<!--            <artifactId>pytorch-jni</artifactId>-->
+<!--            <version>1.13.0-0.20.0</version>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/ai.djl.mxnet/mxnet-model-zoo &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>ai.djl.mxnet</groupId>-->
+<!--            <artifactId>mxnet-model-zoo</artifactId>-->
+<!--            <version>0.21.0</version>-->
+<!--        </dependency>-->
 
     </dependencies>
 
