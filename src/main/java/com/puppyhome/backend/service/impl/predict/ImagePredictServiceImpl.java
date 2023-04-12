@@ -31,7 +31,7 @@ public class ImagePredictServiceImpl implements ImagePredictService {
 	public Future<ResponseResult> imagePredict(String url) {
 
 		// 通过url获取图片
-		String loadUrl = "http://localhost:5000/load/model?url=" + url;
+		String loadUrl = "http://localhost:5000/load/model?url=" + url + "?imageMogr2/format/jpg";
 		JSONObject json = restTemplate.getForEntity(loadUrl, JSONObject.class).getBody();
 
 //		System.out.println(json);
