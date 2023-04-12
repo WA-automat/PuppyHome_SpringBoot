@@ -9,6 +9,8 @@
 5. RestTemplate 结合 wx server api
 6. Jwt
 7. Swagger2
+7. Flask
+7. Resnet-18卷积神经网络
 
 ## 主要数据库架构
 
@@ -157,3 +159,7 @@ create unique index dog_id_uindex
 2023-3-21：
 
 1. 预测接口修改为异步方法
+
+2023-4-12：
+
+1. 模型调试完毕，项目完结
