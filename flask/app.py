@@ -20,9 +20,10 @@ def load_model():  # put application's code here
     # 获取图片信息
     response = req.get(url)
     img = Image.open(BytesIO(response.content))
+    # img.show()
     img = img.resize((224, 224))
     img = np.array(img)
-    print(img.shape)
+    # print(img.shape)
 
     # 图像预处理
     img_tensor = torch.from_numpy(img)
@@ -33,7 +34,7 @@ def load_model():  # put application's code here
     # print(img_tensor.shape)
 
     # 加载模型并预测
-    model = models.resnet18(pretrained=False)
+    model = models.resnet50(pretrained=False)
     # model = nn.Sequential(
     #     nn.Conv2d(3, 32, kernel_size=(5, 5), padding=1),
     #     nn.ReLU(),
@@ -51,9 +52,11 @@ def load_model():  # put application's code here
     #     nn.Linear(256, 120)
     # )
     # 进行预训练模型的修改
-    model.fc = nn.Linear(512, 120)
+    in_features_number = model.fc.in_features
+    model.fc = nn.Linear(in_features_number, 120)
     # model.classifier.add_module("fc", nn.Linear(1000, 120))
-    model.load_state_dict(torch.load('resnet18_puppyhome-v59.pt', map_location=torch.device('cpu')))
+    # model.load_state_dict(torch.load('resnet18_puppyhome-v59.pt', map_location=torch.device('cpu')))
+    model.load_state_dict(torch.load('resnet50_puppyhome-v61.pt', map_location=torch.device('cpu')))
 
     # 测试时，一定要加上这一行！！！
     model.eval()
