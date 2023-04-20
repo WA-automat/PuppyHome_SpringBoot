@@ -34,7 +34,7 @@ public class ImagePredictServiceImpl implements ImagePredictService {
 		String loadUrl = "http://localhost:5000/load/model?url=" + url + "?imageMogr2/format/jpg";
 		JSONObject json = restTemplate.getForEntity(loadUrl, JSONObject.class).getBody();
 
-//		System.out.println(json);
+		// System.out.println(json);
 
 		assert json != null;
 		Object probability = json.get("probability");

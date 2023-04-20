@@ -4,7 +4,7 @@ from flask import request
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torchvision import transforms, models
+from torchvision import models
 from PIL import Image
 import requests as req
 from io import BytesIO
@@ -35,27 +35,10 @@ def load_model():  # put application's code here
 
     # 加载模型并预测
     model = models.resnet50(pretrained=False)
-    # model = nn.Sequential(
-    #     nn.Conv2d(3, 32, kernel_size=(5, 5), padding=1),
-    #     nn.ReLU(),
-    #     nn.MaxPool2d(kernel_size=(2, 2), stride=(2, 2), padding=1),
-    #     nn.Conv2d(32, 64, kernel_size=(2, 2), padding=1),
-    #     nn.ReLU(),
-    #     nn.MaxPool2d(kernel_size=(2, 2), stride=(2, 2)),
-    #     nn.Flatten(),
-    #     nn.Linear(200704, 1024),
-    #     nn.ReLU(),
-    #     nn.Linear(1024, 512),
-    #     nn.ReLU(),
-    #     nn.Linear(512, 256),
-    #     nn.ReLU(),
-    #     nn.Linear(256, 120)
-    # )
+
     # 进行预训练模型的修改
     in_features_number = model.fc.in_features
     model.fc = nn.Linear(in_features_number, 120)
-    # model.classifier.add_module("fc", nn.Linear(1000, 120))
-    # model.load_state_dict(torch.load('resnet18_puppyhome-v59.pt', map_location=torch.device('cpu')))
     model.load_state_dict(torch.load('resnet50_puppyhome-v61.pt', map_location=torch.device('cpu')))
 
     # 测试时，一定要加上这一行！！！
@@ -67,8 +50,6 @@ def load_model():  # put application's code here
     probability, prediction = torch.max(probability, 1)
 
     # 将预测结果从tensor转为array，并抽取结果
-    # prediction = prediction.numpy()[0]
-
     mp = {'probability': max(probability.detach().numpy()[0] * 1, 0.01), 'type': str(prediction.numpy()[0])}
 
     return mp
