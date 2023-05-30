@@ -28,9 +28,9 @@ public class LoginServiceImpl implements LoginService {
 	@Value("${spring.redis.port}")
 	private Long port;
 
-	private final String AppId = "wx5451a7d6f84032d6";    // 公众平台自己的appId
+	private final String AppId = "AppId";    // 公众平台自己的appId
 
-	private final String AppSecret = "09ba46b7831f83dd921e8aaafd6258c9";    // AppSecret
+	private final String AppSecret = "AppSecret";    // AppSecret
 
 	@Autowired
 	private RestTemplate restTemplate;
